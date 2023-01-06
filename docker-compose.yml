@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  backend:
+    build: 
+      context: .
+    image: node-docker
+    container_name: mydna_backend
+    env_file: .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/home/app/node_docker
+      - /home/app/node_docker/node_modules
+    networks:
+      - app-network
+      - database_mysql-compose-network
+    command: npm run start:dev
+
+networks:
+  app-network:
+  database_mysql-compose-network:
+    external: true
